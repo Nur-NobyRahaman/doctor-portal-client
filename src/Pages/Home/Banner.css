@@ -1,0 +1,11 @@
+.banner {
+   overflow-x: hidden;
+    background-image: url(../../assets/images/bg.png);
+    background-size: cover; 
+    margin: auto;
+    
+}
+.appointment{
+    background-image: url(../../assets/images/appointment.png);
+    background-size: cover;
+}

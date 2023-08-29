@@ -1,0 +1,6 @@
+.button{
+    background-image: linear-gradient(90deg, #19D3AE, #0FCFEC);
+}
+.button:hover{
+    background-image: linear-gradient(90deg, #05806D, #0C7592);
+}
