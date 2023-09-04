@@ -20,7 +20,7 @@ const BookingModal = ({ open, setOpen, treatment, date ,refetch}) => {
         e.preventDefault();
         setOpen(false)
         try {
-            const response = await fetch("http://localhost:5000/booking", {
+            const response = await fetch("https://doctors-portal-server-one-snowy.vercel.app/booking", {
                 method: "POST", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json",

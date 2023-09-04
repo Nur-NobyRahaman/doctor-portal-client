@@ -6,7 +6,7 @@ const useAdmin = user => {
     useEffect(() => {
         const { email } = user;
         if (email) {
-            fetch(`http://localhost:5000/admin/${email}`, {
+            fetch(`https://doctors-portal-server-one-snowy.vercel.app/admin/${email}`, {
                 method: "GET", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json",

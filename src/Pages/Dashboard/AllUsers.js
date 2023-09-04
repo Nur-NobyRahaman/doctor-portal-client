@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AllUsers = () => {
     const navigate = useNavigate()
-    const { data: users, isLoading, error, refetch } = useQuery('users', () => fetch('http://localhost:5000/users', {
+    const { data: users, isLoading, error, refetch } = useQuery('users', () => fetch('https://doctors-portal-server-one-snowy.vercel.app/users', {
         method: 'GET',
         headers: {
             authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -29,7 +29,7 @@ const AllUsers = () => {
 
     const handleMakeAdmin = (user) => {
         const { email } = user;
-        fetch(`http://localhost:5000/user/admin/${email}`, {
+        fetch(`https://doctors-portal-server-one-snowy.vercel.app/user/admin/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
