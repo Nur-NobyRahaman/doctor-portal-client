@@ -4,14 +4,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient()
 root.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </BrowserRouter>
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <SnackbarProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </SnackbarProvider>
+    </BrowserRouter>
+  </QueryClientProvider>
 
 );
 

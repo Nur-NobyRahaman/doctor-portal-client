@@ -1,19 +1,42 @@
 import { Menu } from '@mui/icons-material';
-import { AppBar, Box, Button, CssBaseline, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, CircularProgress, CssBaseline, IconButton, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Navbar.css'
+// import './Navbar.css'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import { signOut } from 'firebase/auth';
+import Circular, { Linear } from './Loading';
+import useAdmin from '../../hooks/useAdmin';
 
 const Navbar = () => {
+    const [user, loading, error] = useAuthState(auth);
     const menuItem = <>
         <NavLink className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/'}>Home</NavLink>
         <NavLink className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/appointment'}>Appointment</NavLink>
         <NavLink className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/review'}>Review</NavLink>
         <NavLink className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/about'}>About</NavLink>
         <NavLink className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/contact'}>Contact Us</NavLink>
-        <NavLink className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/login'}>Login</NavLink>
+        {
+            user && <NavLink className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/dashboard'}>Dashboard</NavLink>
+        }
+        {
+            user ? <NavLink onClick={() => {
+                signOut(auth);
+                localStorage.removeItem('accessToken')
+            }} className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/login'}>Sign Out</NavLink> : <NavLink className={({ isActive }) => isActive ? "navItemActive" : "navItem"} to={'/login'}>Login</NavLink>
+        }
+
 
     </>
+    if (loading) {
+        return <Circular></Circular>
+    }
+    if (error) {
+        return <Box sx={{ display: 'flex' }}>
+            < Typography>{error?.message}</Typography>
+        </Box>
+    }
     return (
         <Box sx={{ flexGrow: 1 }} mb={9}>
             <CssBaseline />

@@ -6,7 +6,6 @@ import Services from '../Services/Services';
 import { Box } from '@mui/material';
 import MakeAppointment from './MakeAppointment';
 import Testimonial from './Testimonial';
-import Contact from '../Contact/Contact';
 import ContactField from './ContactField';
 import Footer from './Footer';
 

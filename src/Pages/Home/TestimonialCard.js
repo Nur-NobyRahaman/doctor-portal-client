@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import React from 'react';
-import AppButton from '../../Component/AppButton/AppButton';
+
 
 const TestimonialCard = ({ name, image, review, location }) => {
     return (

@@ -1,23 +1,24 @@
-import { Box, Button, Divider, FormControl, IconButton, InputAdornment, InputLabel, LinearProgress, OutlinedInput, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Divider, IconButton, InputAdornment, LinearProgress, Paper, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useToken from '../../hooks/useToken';
 
-
-const Login = () => {
+const SignUp = () => {
     const [showPassword, setShowPassword] = React.useState(false);
     var pattern = /^(?=.{5,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W])/;
     const [signInWithGoogle, gUser, gLoading,
         gError] = useSignInWithGoogle(auth);
     const [
-        signInWithEmailAndPassword,
-        sUser,
-        sLoading,
-        sError,
-    ] = useSignInWithEmailAndPassword(auth);
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        cError,
+    ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const [error, setError] = useState({
         value: false,
@@ -28,11 +29,10 @@ const Login = () => {
         email: '',
         password: ''
     });
-const [token]=useToken(gUser || sUser)
+
     let signInError;
-    let location = useLocation()
-    let navigate = useNavigate();
-    let from = location.state?.from?.pathname || "/";
+    const navigate = useNavigate();
+    const [token] = useToken(user || gUser)
 
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -48,15 +48,15 @@ const [token]=useToken(gUser || sUser)
         // })
     }
 
-    if (gError || sError) {
-        signInError = <Typography gutterBottom color={'error'} variant='body1'>{gError?.message || sError?.message}</Typography>
+    if (gError || cError || updateError) {
+        signInError = <Typography gutterBottom color={'error'} variant='body1'>{gError?.message || cError?.message || updateError?.message}</Typography>
     }
     if (token) {
-        navigate(from, { replace: true });
+        navigate('/appointment');
     }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value
         if (!pattern.test(password)) {
@@ -72,8 +72,8 @@ const [token]=useToken(gUser || sUser)
                 email,
                 password
             })
-            await signInWithEmailAndPassword(email, password)
-          
+            await createUserWithEmailAndPassword(email, password);
+            await updateProfile({ displayName: name })
         }
 
     };
@@ -81,39 +81,33 @@ const [token]=useToken(gUser || sUser)
         <Box display={'flex'} justifyContent={'center'} alignItems={"center"} height={'80vh'}>
 
             <Paper elevation={3} sx={{ width: '22vw' }}>
-                {(sLoading || gLoading) && <LinearProgress color="secondary" />}
+                {(loading || gLoading || updating) && <LinearProgress color="secondary" />}
                 <Box p={5}>
-                    <Typography mb={3} textAlign={'center'} variant='h6'>Login</Typography>
+                    <Typography mb={3} textAlign={'center'} variant='h6'>Sign Up</Typography>
 
                     <form onSubmit={handleSubmit} action="" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '15px' }}>
+                        <TextField name='name' required type='text' fullWidth color='secondary' size='small' label='Name' ></TextField>
                         <TextField name='email' required type='email' fullWidth color='secondary' size='small' label='Email' ></TextField>
 
-                        <Box>
-                            <TextField fullWidth id="outlined-adornment-password"
-                                InputProps={{
-                                    endAdornment: <InputAdornment position='end'>
-                                        <IconButton onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}>
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                        <TextField fullWidth id="outlined-adornment-password"
+                            InputProps={{
+                                endAdornment: <InputAdornment position='end'>
+                                    <IconButton onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
 
-                                        </IconButton>
-                                    </InputAdornment>
-                                }} required helperText={error?.message} error={error?.value} name='password' type={showPassword ? 'text' : 'password'} color='secondary' size='small' label='Password' ></TextField >
-
-                            <Link href="#" >
-                                <Typography variant="body2">Forgot Password?</Typography>
-                               
-                            </Link>
-                        </Box>
+                                    </IconButton>
+                                </InputAdornment>
+                            }} required helperText={error?.message} error={error?.value} name='password' type={showPassword ? 'text' : 'password'} color='secondary' size='small' label='Password' ></TextField >
                         <Box>
                             {signInError}
-                            <Button type='submit' fullWidth color='thirdly' variant='contained' size='large'>Login</Button>
+                            <Button type='submit' fullWidth color='thirdly' variant='contained' size='large'>Sign Up</Button>
 
                         </Box>
                     </form>
 
-                    <Typography mt={1.5} mb={1} textAlign={'center'} variant='body2'>New to Doctors Portal?  <Link to="/signUp" variant="body2">
-                        {'Create new account'}
+                    <Typography mt={1.5} mb={1} textAlign={'center'} variant='body2'>Already have an account?  <Link to="/login" variant="body2">
+                        {'Please Login'}
                     </Link></Typography>
                     <Divider sx={{ mb: 2 }}>OR</Divider>
                     <Button onClick={() => signInWithGoogle()} fullWidth color='fourthly' variant='contained' size='large'>continue white google</Button>
@@ -126,4 +120,4 @@ const [token]=useToken(gUser || sUser)
     );
 };
 
-export default Login;
+export default SignUp;

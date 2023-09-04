@@ -2,7 +2,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import chair from '../../assets/images/chair.png'
 import './Banner.css'
-import { Button, CssBaseline, Stack, Typography } from '@mui/material';
+import { CssBaseline, Stack, Typography } from '@mui/material';
 import AppButton from '../../Component/AppButton/AppButton';
 const Banner = () => {
     return (

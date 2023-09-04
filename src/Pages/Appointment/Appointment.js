@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 const Appointment = () => {
     const [value, setValue] = React.useState(dayjs(new Date()));
     return (
-        <Box>
+        <Box position={'relative'}>
             <AppointmentBanner value={value} setValue={setValue}></AppointmentBanner>
             <AvailableAppointments value={value}></AvailableAppointments>
             <Footer></Footer>

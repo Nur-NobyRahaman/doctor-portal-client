@@ -1,4 +1,4 @@
-import { Box, Card, CardMedia, CssBaseline, Typography } from '@mui/material';
+import { Box, Card, CssBaseline, Typography } from '@mui/material';
 import React from 'react';
 
 const InfoCard = ({ img, color, bg ,title,}) => {

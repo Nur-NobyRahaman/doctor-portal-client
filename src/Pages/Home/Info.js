@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia, IconButton, Stack, Typography } from '@mui/material';
+import { Box,  Stack } from '@mui/material';
 import React from 'react';
 import clock from '../../assets/icons/clock.svg'
 import location from '../../assets/icons/marker.svg'

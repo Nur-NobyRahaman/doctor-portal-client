@@ -1,4 +1,4 @@
-import { Box, Card, CssBaseline, Typography } from '@mui/material';
+import { Box, CssBaseline, Typography } from '@mui/material';
 import React from 'react';
 import treatment from '../../../assets/images/treatment.png'
 import AppButton from '../../../Component/AppButton/AppButton';

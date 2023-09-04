@@ -12,3 +12,47 @@
   background-size: cover;
  
 }
+a{
+  color: #0FCFEC;
+}
+
+.navItem {
+  text-decoration: none;
+  padding: 8px 15px;
+  color: black;
+
+}
+
+.navItemActive {
+  text-decoration: none;
+  background-color: #3A4256;
+  padding: 8px 15px;
+  color: white;
+  border-radius: 8px;
+}
+.navItem:hover{
+  border-radius: 8px;
+  background-color: #eceff1;
+}
+.navItem:active{
+  color: black;
+}
+.sidebar {
+  text-decoration: none;
+  padding: 8px 15px;
+  color: black;
+
+}
+
+.sidebarActive {
+  text-decoration: none;
+  background-color: #F1F5F9;
+  padding: 8px 15px;
+  color: black;
+}
+/* .sidebar:hover{
+  background-color: #fafafa;
+} */
+.sidebar:active{
+  color: black;
+}

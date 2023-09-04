@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import React from 'react';
 import AppButton from '../../Component/AppButton/AppButton';
 

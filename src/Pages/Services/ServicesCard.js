@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActions, CardContent, CssBaseline, Typography } from '@mui/material';
+import { Box, Card, CardContent, CssBaseline, Typography } from '@mui/material';
 import React from 'react';
 
 const ServicesCard = ({ img }) => {

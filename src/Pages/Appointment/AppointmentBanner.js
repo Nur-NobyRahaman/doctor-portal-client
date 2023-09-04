@@ -2,7 +2,7 @@ import { Box, Paper } from '@mui/material';
 import React from 'react';
 import bg from '../../assets/images/bg.png'
 import chair from '../../assets/images/chair.png'
-import dayjs from 'dayjs';
+
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
