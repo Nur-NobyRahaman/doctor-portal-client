@@ -15,7 +15,7 @@ const AvailableAppointments = ({ value }) => {
     const date = dayjs(value).format('MMMM DD, YYYY');
 
     const { isLoading, error, data: services ,refetch } = useQuery(['available',date,], () =>
-    fetch(`https://doctors-portal-server-one-snowy.vercel.app/available?date=${date}`).then(res =>
+    fetch(`http://localhost:5000/available?date=${date}`).then(res =>
       res.json()
     )
   )

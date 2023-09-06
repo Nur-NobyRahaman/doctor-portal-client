@@ -6,7 +6,7 @@ const useToken = user => {
         const email = user?.user?.email;
         const currentUser = { email: email }
         if (email) {
-            fetch(`https://doctors-portal-server-one-snowy.vercel.app/user/${email}`, {
+            fetch(`http://localhost:5000/user/${email}`, {
                 method: "PUT", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json",

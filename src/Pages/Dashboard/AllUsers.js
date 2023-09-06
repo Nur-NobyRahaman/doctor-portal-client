@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AllUsers = () => {
     const navigate = useNavigate()
-    const { data: users, isLoading, error, refetch } = useQuery('users', () => fetch('https://doctors-portal-server-one-snowy.vercel.app/users', {
+    const { data: users, isLoading, error, refetch } = useQuery('users', () => fetch('http://localhost:5000/users', {
         method: 'GET',
         headers: {
             authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -29,7 +29,7 @@ const AllUsers = () => {
 
     const handleMakeAdmin = (user) => {
         const { email } = user;
-        fetch(`https://doctors-portal-server-one-snowy.vercel.app/user/admin/${email}`, {
+        fetch(`http://localhost:5000/user/admin/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -54,7 +54,7 @@ const AllUsers = () => {
     }
     console.log(users);
     return (
-        <Box>
+        <Box mt={7}>
 
             <Paper sx={{ width: '70%', overflow: 'hidden', mx: 'auto' }}>
                 <TableContainer sx={{ maxHeight: '65dvh' }}>

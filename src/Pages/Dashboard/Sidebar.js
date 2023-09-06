@@ -8,10 +8,10 @@ import Circular from '../Shared/Loading';
 
 const Sidebar = () => {
     const location = useLocation()
-    const [user ,loading] = useAuthState(auth)
+    const [user, loading] = useAuthState(auth)
     const [admin] = useAdmin(user);
-    if(loading){
-        return <Circular/>
+    if (loading) {
+        return <Circular />
     }
     const sidebarItems = <>
 
@@ -25,9 +25,17 @@ const Sidebar = () => {
             <ListItemButton>My History</ListItemButton>
         </NavLink>
         {
-            admin && <NavLink className={location?.pathname === '/dashboard/allUsers' ? "sidebarActive" : "sidebar"} to={'/dashboard/allUsers'}>
-                <ListItemButton>All Users</ListItemButton>
-            </NavLink>
+            admin && <>
+                <NavLink className={location?.pathname === '/dashboard/allUsers' ? "sidebarActive" : "sidebar"} to={'/dashboard/allUsers'}>
+                    <ListItemButton>All Users</ListItemButton>
+                </NavLink>
+                <NavLink className={location?.pathname === '/dashboard/addDoctor' ? "sidebarActive" : "sidebar"} to={'/dashboard/addDoctor'}>
+                    <ListItemButton>Add a doctor</ListItemButton>
+                </NavLink>
+                <NavLink className={location?.pathname === '/dashboard/manageDoctor' ? "sidebarActive" : "sidebar"} to={'/dashboard/manageDoctor'}>
+                    <ListItemButton>Manage Doctors</ListItemButton>
+                </NavLink>
+            </>
         }
 
     </>

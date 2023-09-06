@@ -7,7 +7,7 @@ import auth from '../../firebase.init';
 import { useSnackbar } from 'notistack';
 
 const BookingModal = ({ open, setOpen, treatment, date ,refetch}) => {
-    const { name, slots } = treatment
+    const { name, slots ,price } = treatment
     const [slot, setSlot] = React.useState(slots[0]);
     const [phone, setPhone] = useState(0)
     const [user] = useAuthState(auth);
@@ -20,7 +20,7 @@ const BookingModal = ({ open, setOpen, treatment, date ,refetch}) => {
         e.preventDefault();
         setOpen(false)
         try {
-            const response = await fetch("https://doctors-portal-server-one-snowy.vercel.app/booking", {
+            const response = await fetch("http://localhost:5000/booking", {
                 method: "POST", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json",
@@ -29,6 +29,7 @@ const BookingModal = ({ open, setOpen, treatment, date ,refetch}) => {
                     date: dayjs(date).format('MMMM DD, YYYY') ,
                     name,
                     slot,
+                    price,
                     displayName: user?.displayName,
                     email: user?.email,
                     phone: phone
